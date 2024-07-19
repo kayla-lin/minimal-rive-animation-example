@@ -1,6 +1,6 @@
 # Checkout the animation [live demo](https://minimal-rive-animation-example.vercel.app/])
 
-I made this for [Theo's FileUpload hero visual context](https://x.com/t3dotgg/status/1811305925677908421)
+I made this for [Theo's FileUpload hero visual contest](https://x.com/t3dotgg/status/1811305925677908421)
 
 - Animation created in Rive (I finally had an excuse to use [rive.app](https://rive.app/)!)
 
