@@ -34,6 +34,7 @@ export default function Example({ source }: { source: string }) {
           <button
             className="border border-blue-200 h-[auto] bg-white "
             onClick={() => {
+              // Setting this to true will play the download animation👇
               if (onScrollToAnimate) {
                 onScrollToAnimate.value = true;
               }
