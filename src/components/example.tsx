@@ -19,6 +19,14 @@ export default function Example({
     autoplay: true,
   });
 
+  const { rive: autoPlayRive, RiveComponent: AutoPlayRive } = useRive({
+    src: source,
+    artboard,
+    stateMachines: STATE_MACHINE,
+    // Needs this to get into the "unscrolled" state, otherwise it'll look ugly 👇
+    autoplay: true,
+  });
+
   const onScrollToAnimate = useStateMachineInput(
     rive,
     STATE_MACHINE,
@@ -26,6 +34,8 @@ export default function Example({
     // Feel free to change this to true if you want it to autoplay the "download" animation 👇
     false
   );
+
+  useStateMachineInput(autoPlayRive, STATE_MACHINE, "scrolled", true);
 
   const [remount, setRemount] = useState(false);
 
@@ -46,9 +56,6 @@ export default function Example({
   return (
     <>
       <div className="flex-col gap-8">
-        <div className="w-[350px] h-[350px]">
-          {!remount && <RiveComponent />}
-        </div>
         <div>
           <button
             className="border border-blue-200 h-[auto] bg-white "
@@ -69,6 +76,16 @@ export default function Example({
           >
             Remount component
           </button>
+        </div>
+        <div className="flex gap-8">
+          <div className="w-[350px] h-[350px]">
+            <h1 className="text-white">Animation without autoplay</h1>
+            {!remount && <RiveComponent />}
+          </div>
+          <div className="w-[350px] h-[350px]">
+            <h1 className="text-white">Auto played animation</h1>
+            {!remount && <AutoPlayRive />}
+          </div>
         </div>
       </div>
     </>
