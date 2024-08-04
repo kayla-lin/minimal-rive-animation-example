@@ -1,12 +1,19 @@
 "use client";
 import { useRive, useStateMachineInput } from "@rive-app/react-canvas";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const STATE_MACHINE = "scroll";
 
-export default function Example({ source }: { source: string }) {
+export default function Example({
+  source,
+  artboard,
+}: {
+  source: string;
+  artboard?: string;
+}) {
   const { rive, RiveComponent } = useRive({
     src: source,
+    artboard,
     stateMachines: STATE_MACHINE,
     // Needs this to get into the "unscrolled" state, otherwise it'll look ugly 👇
     autoplay: true,
@@ -20,6 +27,16 @@ export default function Example({ source }: { source: string }) {
     false
   );
 
+  const [remount, setRemount] = useState(false);
+
+  useEffect(() => {
+    if (remount) {
+      setTimeout(() => {
+        setRemount(false);
+      }, 300);
+    }
+  }, [remount]);
+
   useEffect(() => {
     return () => {
       rive?.cleanup();
@@ -28,8 +45,10 @@ export default function Example({ source }: { source: string }) {
 
   return (
     <>
-      <div className="w-[400px] h-[400px] md:w-[800px] md:h-[800px]  flex gap-8">
-        <RiveComponent />
+      <div className="flex-col gap-8">
+        <div className="w-[350px] h-[350px]">
+          {!remount && <RiveComponent />}
+        </div>
         <div>
           <button
             className="border border-blue-200 h-[auto] bg-white "
@@ -41,6 +60,14 @@ export default function Example({ source }: { source: string }) {
             }}
           >
             Turn on animation
+          </button>
+          <button
+            className="border border-blue-200 h-[auto] bg-white "
+            onClick={() => {
+              setRemount(true);
+            }}
+          >
+            Remount component
           </button>
         </div>
       </div>
