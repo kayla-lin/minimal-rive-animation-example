@@ -1,13 +1,12 @@
-import { HeroDemo } from "@/components/hero-demo";
 import HeroExample from "@/components/hero-example";
 import React from "react";
 
 const Optimized = () => {
   return (
     <main className="bg-[#150002]">
-      <div className="mx-auto max-w-7xl pb-4 md:pb-0 lg:px-8">
-        <div className="lg:grid lg:grid-cols-2 lg:gap-8">
-          <div className="mx-auto max-w-md px-6 sm:max-w-2xl sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
+      <div className="mx-auto max-w-7xl pb-4 md:pb-0 lg:px-8 overflow-x-hidden">
+        <div className="lg:grid lg:grid-cols-2 lg:gap-4">
+          <div className="mx-auto max-w-mdsm:max-w-2xl sm:text-center lg:flex lg:items-center lg:px-0 lg:text-left">
             <div className="flex flex-col pb-8">
               <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:mt-5 sm:text-6xl lg:mt-6 xl:text-6xl">
                 <span className="block">Better file uploads</span>
@@ -38,8 +37,8 @@ const Optimized = () => {
           </div>
           <div className="-mb-16 mt-12 hidden sm:-mb-48 lg:relative lg:m-0 lg:block">
             <div className="mx-auto max-w-md px-6 text-white sm:max-w-2xl lg:max-w-none lg:px-0">
-              <div className="flex h-[800px] w-[800px] animate-fade-in">
-                <HeroExample source={"/optimized.riv"} />
+              <div className="flex h-[800px] w-[800px] animate-in fade-in duration-300 ">
+                <HeroExample source={"/optimized_2.riv"} />
               </div>
             </div>
           </div>

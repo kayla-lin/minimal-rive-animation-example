@@ -1,6 +1,7 @@
 "use client";
 import { useRive } from "@rive-app/react-canvas";
-import { useEffect, useState } from "react";
+import Image from "next/image";
+import { useState } from "react";
 
 const STATE_MACHINE = "scroll";
 
@@ -11,41 +12,65 @@ export default function HeroExample({
   source: string;
   artboard?: string;
 }) {
-  const { rive: autoPlayRive, RiveComponent: AutoPlayRive } = useRive({
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  const [isImageHidden, setIsImageHidden] = useState(false);
+
+  const { RiveComponent: AutoPlayRive } = useRive({
     src: source,
     artboard,
     stateMachines: STATE_MACHINE,
     // Needs this to get into the "unscrolled" state, otherwise it'll look ugly 👇
     autoplay: true,
-  });
+    onLoad: () => {
+      setIsLoaded(true);
 
-  const [remount, setRemount] = useState(false);
+      /**
+       * This is a hack to get the transition from the Image to the Next animation looking okay
+       *
+       * 🚨 Problem:
+       *
+       * Unmounting and remounting the component leads to a weird flash of black between the image and the Rive component
+       *
+       * ✅ Solution
+       *
+       * Overlay the Rive component onto the Image component, so there is not a moment of black flashing
+       *
+       * Fade out the Image component behind the Rive component
+       *
+       * This leads to a streak / fade coming from the back image disappearing, but it looks tons better than the flash.
+       *
+       * Not ideal but looks animation purposeful!
+       *
+       */
+      //
+      //
 
-  useEffect(() => {
-    if (remount) {
+      // Solution:
       setTimeout(() => {
-        setRemount(false);
-      }, 300);
-    }
-  }, [remount]);
+        setIsImageHidden(true);
+      }, 500);
+    },
+  });
 
   return (
     <>
-      <div className="flex-col gap-8">
-        <div className="flex gap-8">
-          <div className="w-[800px] h-[800px]">
-            {!remount && <AutoPlayRive />}
-          </div>
+      <div className="flex w-[700px] h-[700px] relative">
+        <div
+          className={`w-[700px] h-[700px] ${
+            !isLoaded ? "hidden" : "block"
+          } z-10`}
+        >
+          <AutoPlayRive />
         </div>
-        <div>
-          <button
-            className="border border-blue-200 h-[auto] bg-white "
-            onClick={() => {
-              setRemount(true);
-            }}
-          >
-            Remount component
-          </button>
+
+        {/* HACK TO PREVENT FLASH BETWEEN RIVE COMPONENT AND IMAGE */}
+        <div
+          className={`w-[700x] h-[700px] overflow-hidden absolute left-[14px] ${
+            isLoaded && "animate-out fade-out duration-500"
+          } ${isImageHidden && "opacity-0"}`}
+        >
+          <Image alt="File upload" width={672} height={700} src="/start.png" />
         </div>
       </div>
     </>
