@@ -38,9 +38,7 @@ export default function HeroExample({
        *
        * Fade out the Image component behind the Rive component
        *
-       * This leads to a streak / fade coming from the back image disappearing, but it looks tons better than the flash.
-       *
-       * Not ideal but looks animation purposeful!
+       * When testing I found maybe a subtle slight flash, I don't think this is too noticeable to worry about
        *
        */
       //
