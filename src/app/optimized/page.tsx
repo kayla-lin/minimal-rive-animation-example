@@ -38,7 +38,7 @@ const Optimized = () => {
           <div className="-mb-16 mt-12 hidden sm:-mb-48 lg:relative lg:m-0 lg:block">
             <div className="mx-auto max-w-md px-6 text-white sm:max-w-2xl lg:max-w-none lg:px-0">
               <div className="flex h-[800px] w-[800px] animate-in fade-in duration-300 ">
-                <HeroExample source={"/optimized_2.riv"} />
+                <HeroExample source={"/optimized.riv"} />
               </div>
             </div>
           </div>
