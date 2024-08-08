@@ -70,7 +70,14 @@ export default function DynamicLoading({
     fetch(src).then(async (res) => {
       const image = await decodeImage(new Uint8Array(await res.arrayBuffer()));
 
+      /**
+       * For some reason I can't get the types for this from the docs
+       * Without this function, the code no longer loads in the asset though
+       */
+
+      // @ts-ignore
       if (asset?.setRenderImage) {
+        // @ts-ignore
         asset?.setRenderImage(image);
       }
 
