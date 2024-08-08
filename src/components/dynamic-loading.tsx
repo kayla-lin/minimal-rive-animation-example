@@ -5,6 +5,7 @@ import { useState } from "react";
 const STATE_MACHINE = "scroll";
 
 import { useRive, FileAsset, decodeImage } from "@rive-app/react-canvas-lite";
+import { ImageAsset } from "@rive-app/react-canvas";
 
 export default function DynamicLoading({
   source,
@@ -75,11 +76,8 @@ export default function DynamicLoading({
        * Without this function, the code no longer loads in the asset though
        */
 
-      // @ts-ignore
-      if (asset?.setRenderImage) {
-        // @ts-ignore
-        asset?.setRenderImage(image);
-      }
+      const imageAsset = asset as ImageAsset;
+      imageAsset?.setRenderImage(image);
 
       image.unref();
     });
