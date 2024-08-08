@@ -1,11 +1,12 @@
 "use client";
-import { useRive } from "@rive-app/react-canvas";
 import Image from "next/image";
 import { useState } from "react";
 
 const STATE_MACHINE = "scroll";
 
-export default function HeroExample({
+import { useRive, FileAsset, decodeImage } from "@rive-app/react-canvas-lite";
+
+export default function DynamicLoading({
   source,
   artboard,
 }: {
@@ -22,9 +23,23 @@ export default function HeroExample({
     stateMachines: STATE_MACHINE,
     // Needs this to get into the "unscrolled" state, otherwise it'll look ugly 👇
     autoplay: true,
+    assetLoader: (asset, bytes) => {
+      if (asset.name === "dotted-line") {
+        setImageAsset(asset, "/selected-line.webp");
+        return true;
+      }
+      if (asset.name === "dotted-line-unselect") {
+        setImageAsset(asset, "/unselected-line.webp");
+        return true;
+      }
+      if (asset.name === "theo-selfie") {
+        setImageAsset(asset, "/theo-selfie.webp");
+        return true;
+      }
+      return false;
+    },
     onLoad: () => {
       setIsLoaded(true);
-
       rive?.resizeDrawingSurfaceToCanvas();
 
       /**
@@ -43,8 +58,6 @@ export default function HeroExample({
        * When testing I found maybe a subtle slight flash, I don't think this is too noticeable to worry about
        *
        */
-      //
-      //
 
       // Solution:
       setTimeout(() => {
@@ -52,6 +65,18 @@ export default function HeroExample({
       }, 500);
     },
   });
+
+  const setImageAsset = (asset: FileAsset, src: string) => {
+    fetch(src).then(async (res) => {
+      const image = await decodeImage(new Uint8Array(await res.arrayBuffer()));
+
+      if (asset?.setRenderImage) {
+        asset?.setRenderImage(image);
+      }
+
+      image.unref();
+    });
+  };
 
   return (
     <>

@@ -9,10 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@rive-app/canvas": "^2.19.6",
     "@rive-app/react-canvas": "^4.13.3",
+    "@rive-app/react-canvas-lite": "^4.13.5",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "rive.wasm": "link:@rive-app/canvas/rive.wasm"
   },
   "devDependencies": {
     "@types/node": "^20",

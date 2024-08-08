@@ -5,9 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@rive-app/canvas':
+    specifier: ^2.19.6
+    version: 2.19.6
   '@rive-app/react-canvas':
     specifier: ^4.13.3
     version: 4.13.3(react@18.0.0)
+  '@rive-app/react-canvas-lite':
+    specifier: ^4.13.5
+    version: 4.13.5(react@18.0.0)
   next:
     specifier: 14.2.5
     version: 14.2.5(react-dom@18.0.0)(react@18.0.0)
@@ -17,6 +23,9 @@ dependencies:
   react-dom:
     specifier: ^18
     version: 18.0.0(react@18.0.0)
+  rive.wasm:
+    specifier: link:@rive-app/canvas/rive.wasm
+    version: link:@rive-app/canvas/rive.wasm
 
 devDependencies:
   '@types/node':
@@ -203,8 +212,25 @@ packages:
     dev: true
     optional: true
 
+  /@rive-app/canvas-lite@2.19.4:
+    resolution: {integrity: sha512-Blv5KIY6jjuxac+cfZY0k03a7zYG3HXaX2yXZQdPIKYyzW0fJdnVxqrf26vZmZs2v28rm0+CgYsXrqIXMh8NxA==}
+    dev: false
+
   /@rive-app/canvas@2.19.3:
     resolution: {integrity: sha512-5z8ikWGPw4xAAwp9tklhGTMR5Zg/JzgdNfX18FJNXzH1cZtiEPJofuFlWl6f0ZzUCbkXBPVq5CQpckS426HZEQ==}
+    dev: false
+
+  /@rive-app/canvas@2.19.6:
+    resolution: {integrity: sha512-XNtLRCs4SZP6yO2X8AwJ3kTujx8tj6SFck6aSMSX7boMheoFV7gm+D+RPYdpHxwRfN66Mr5+Ku7grVp67wzw8A==}
+    dev: false
+
+  /@rive-app/react-canvas-lite@4.13.5(react@18.0.0):
+    resolution: {integrity: sha512-pKoEzZNjHDbExHPLTItOpoMNmg685PTAXQK21l9UeOTrCnzxIN/v2TV6GmrOT3uLMC03zAfaJHy78rWFR93Vzg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@rive-app/canvas-lite': 2.19.4
+      react: 18.0.0
     dev: false
 
   /@rive-app/react-canvas@4.13.3(react@18.0.0):
